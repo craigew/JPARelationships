@@ -1,0 +1,79 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="JPAIntroduction_1" author="cw" runOnChange="true"  >
+        <createTable tableName="customer">
+            <column name="id" type="integer">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar2(50)"/>
+            <column name="surname" type="varchar(50)"/>
+            <column name="identity_number" type="varchar(15)"/>
+            <column name="age" type="integer"/>
+            <column name="residential_address_id" type="integer"/>
+            <column name="postal_address_id" type="integer"/>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="customer"></dropTable>
+        </rollback>
+
+        <createSequence sequenceName="id_sequence" incrementBy="1" startValue="5"/>
+
+
+    </changeSet>
+
+    <changeSet id="JPAIntroduction_2" author="cw" context="test">
+        <insert tableName="customer">
+            <column name="id" value="1"/>
+            <column name="name" value="Jane"/>
+            <column name="surname" value="Doe"/>
+            <column name="identity_number" value="654321"/>
+            <column name="age" value="36"/>
+            <column name="residential_address_id" value="2"/>
+            
+        </insert>
+    </changeSet>
+
+    <changeSet id="JPARelationships_1" author="cw" runOnChange="true"  >
+        <createTable tableName="address">
+            <column name="id" type="integer">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="addressLine1" type="varchar2(50)"/>
+            <column name="addressLine2" type="varchar2(50)"/>
+            <column name="suburb" type="varchar2(50)"/>
+            <column name="postalCode" type="varchar2(4)"/>
+            <column name="country" type="varchar2(50)"/>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="address"></dropTable>
+        </rollback>
+
+
+    </changeSet>
+
+    <changeSet id="JPARelationships_2" author="cw" context="test">
+        <insert tableName="address">
+            <column name="id" value="1"/>
+            <column name="addressLine1" value="1 Somewhere"/>
+            <column name="addressLine2" value="Out there"/>
+            <column name="suburb" value="Away"/>
+            <column name="postalCode" value="1234"/>
+            <column name="country" value="South Africa"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" value="2"/>
+            <column name="addressLine1" value="1 Somewhere"/>
+            <column name="addressLine2" value="Out there"/>
+            <column name="suburb" value="Away"/>
+            <column name="postalCode" value="1234"/>
+            <column name="country" value="South Africa"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>
